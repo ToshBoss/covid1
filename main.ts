@@ -20,15 +20,17 @@ radio.onReceivedString(function (receivedString) {
     
 
     
-serial.writeLine("DEAR GOD" + temp.length)
+    //serial.writeLine("DEAR GOD" + temp.length)
 
     temp.forEach(function (value) {
         if(list.indexOf(temp[i]) == -1){
-        list.push(temp[i])
+            list.push(temp[i])
+            serial.writeLine("hewwo " + temp[i])
+            
         }
-        basic.showString("" + (temp[i]))
-        basic.pause(1000)
-        basic.clearScreen()
+        // basic.showString("" + (temp[i]))
+        // basic.pause(1000)
+        // basic.clearScreen()
     }); 
 
 })
@@ -75,12 +77,13 @@ let id = control.deviceSerialNumber()
 isCovid = 0
 list = []
 control2 = true
-list.push(control.deviceSerialNumber().toString())
-list.push("0")
+let tempList: string[] = [control.deviceSerialNumber().toString(), "false"]
+list.push(tempList.join())
+//list.push("0")
 radio.setGroup(1)
 radio.setTransmitPower(1)
 basic.forever(function () {
     radio.sendValue("isCovid", isCovid)
-    radio.sendString("" + (list.join()))
+    radio.sendString((list.join()))
     basic.pause(200)
 })
